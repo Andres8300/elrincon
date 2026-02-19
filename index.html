@@ -2,66 +2,86 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Menú Comidas Rápidas</title>
+<title>🔥 TU NEGOCIO</title>
 
 <style>
 body{
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     margin:0;
-    background:#f4f4f4;
-    transition:0.3s;
-}
-
-body.oscuro{
-    background:#1e1e1e;
-    color:white;
+    background:#f2f2f2;
 }
 
 header{
-    background:#c40000;
+    background:linear-gradient(90deg,#c40000,#ff4d4d);
     color:white;
-    padding:15px;
+    padding:18px;
     text-align:center;
     font-size:22px;
     font-weight:bold;
+}
+
+.buscador{
+    padding:10px;
+    text-align:center;
+}
+
+input[type="text"]{
+    width:90%;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #ccc;
+}
+
+.filtros{
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.filtros button{
+    padding:8px 12px;
+    margin:5px;
+    border:none;
+    border-radius:20px;
+    background:#ddd;
+    cursor:pointer;
+}
+
+.filtros button.activo{
+    background:#c40000;
+    color:white;
 }
 
 .contenedor{
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
-    padding-bottom:50px;
 }
 
 .card{
     background:white;
-    width:260px;
-    margin:15px;
+    width:250px;
+    margin:10px;
     border-radius:15px;
-    box-shadow:0 6px 12px rgba(0,0,0,0.15);
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
     overflow:hidden;
     text-align:center;
     transition:0.3s;
 }
 
 .card:hover{
-    transform:translateY(-8px);
-}
-
-body.oscuro .card{
-    background:#2c2c2c;
+    transform:translateY(-5px);
 }
 
 .card img{
     width:100%;
-    height:180px;
+    height:170px;
     object-fit:cover;
 }
 
 .precio{
-    font-size:20px;
     color:green;
     font-weight:bold;
+    font-size:18px;
 }
 
 button{
@@ -107,10 +127,8 @@ button{
     background:white;
     box-shadow:-6px 0 15px rgba(0,0,0,0.3);
     padding:20px;
-    transition:0.4s ease;
+    transition:0.4s;
     overflow:auto;
-    border-top-left-radius:25px;
-    border-bottom-left-radius:25px;
 }
 
 #panelCarrito.abierto{
@@ -129,12 +147,6 @@ button{
     color:white;
     width:100%;
 }
-
-input, select{
-    width:100%;
-    padding:6px;
-    margin:6px 0;
-}
 </style>
 </head>
 
@@ -142,91 +154,25 @@ input, select{
 
 <header>🔥 TU NEGOCIO</header>
 
-<div class="contenedor">
-
-<!-- PRODUCTOS -->
-
-<div class="card">
-<img src="https://i.imgur.com/5Aqgz7o.jpg">
-<h3>Hamburguesa</h3>
-<p class="precio">$18.000</p>
-<button class="agregar" onclick="agregar('Hamburguesa',18000)">Agregar</button>
-<button class="quitar" onclick="quitar('Hamburguesa')">Quitar</button>
+<div class="buscador">
+<input type="text" placeholder="Buscar producto..." onkeyup="buscar(this.value)">
 </div>
 
-<div class="card">
-<img src="https://i.imgur.com/1bX5QH6.jpg">
-<h3>Aplastado de Pollo</h3>
-<p class="precio">$20.000</p>
-<button class="agregar" onclick="agregar('Aplastado de Pollo',20000)">Agregar</button>
-<button class="quitar" onclick="quitar('Aplastado de Pollo')">Quitar</button>
+<div class="filtros">
+<button onclick="filtrar('todos')" class="activo">Todos</button>
+<button onclick="filtrar('hamburguesa')">Hamburguesas</button>
+<button onclick="filtrar('pincho')">Pinchos</button>
+<button onclick="filtrar('bebida')">Bebidas</button>
+<button onclick="filtrar('especial')">Especiales</button>
 </div>
 
-<div class="card">
-<img src="https://i.imgur.com/1bX5QH6.jpg">
-<h3>Aplastado Ropa Vieja</h3>
-<p class="precio">$22.000</p>
-<button class="agregar" onclick="agregar('Aplastado Ropa Vieja',22000)">Agregar</button>
-<button class="quitar" onclick="quitar('Aplastado Ropa Vieja')">Quitar</button>
-</div>
+<div class="contenedor" id="productos"></div>
 
-<div class="card">
-<img src="https://i.imgur.com/5Aqgz7o.jpg">
-<h3>Pincho Pollo</h3>
-<p class="precio">$15.000</p>
-<button class="agregar" onclick="agregar('Pincho Pollo',15000)">Agregar</button>
-<button class="quitar" onclick="quitar('Pincho Pollo')">Quitar</button>
-</div>
-
-<div class="card">
-<img src="https://i.imgur.com/5Aqgz7o.jpg">
-<h3>Pincho Mixto</h3>
-<p class="precio">$17.000</p>
-<button class="agregar" onclick="agregar('Pincho Mixto',17000)">Agregar</button>
-<button class="quitar" onclick="quitar('Pincho Mixto')">Quitar</button>
-</div>
-
-<div class="card">
-<img src="https://i.imgur.com/5Aqgz7o.jpg">
-<h3>Costillas</h3>
-<p class="precio">$25.000</p>
-<button class="agregar" onclick="agregar('Costillas',25000)">Agregar</button>
-<button class="quitar" onclick="quitar('Costillas')">Quitar</button>
-</div>
-
-<div class="card">
-<img src="https://i.imgur.com/5Aqgz7o.jpg">
-<h3>Chorizo</h3>
-<p class="precio">$10.000</p>
-<button class="agregar" onclick="agregar('Chorizo',10000)">Agregar</button>
-<button class="quitar" onclick="quitar('Chorizo')">Quitar</button>
-</div>
-
-<div class="card">
-<img src="https://i.imgur.com/5Aqgz7o.jpg">
-<h3>Porky Papas</h3>
-<p class="precio">$23.000</p>
-<button class="agregar" onclick="agregar('Porky Papas',23000)">Agregar</button>
-<button class="quitar" onclick="quitar('Porky Papas')">Quitar</button>
-</div>
-
-<div class="card">
-<img src="https://i.imgur.com/5Aqgz7o.jpg">
-<h3>Gaseosa</h3>
-<p class="precio">$5.000</p>
-<button class="agregar" onclick="agregar('Gaseosa',5000)">Agregar</button>
-<button class="quitar" onclick="quitar('Gaseosa')">Quitar</button>
-</div>
-
-</div>
-
-<!-- BOTON CARRITO -->
 <div id="botonCarrito" onclick="abrirCarrito()">
 🛒
 <div id="contador">0</div>
 </div>
 
-<!-- PANEL -->
 <div id="panelCarrito">
 <h2>🛒 Tu Pedido</h2>
 <div id="lista"></div>
@@ -234,11 +180,12 @@ input, select{
 
 <input type="text" id="nombre" placeholder="Tu nombre">
 <input type="text" id="direccion" placeholder="Dirección">
+<textarea id="nota" placeholder="Notas adicionales"></textarea>
 
 <select id="pago">
-<option value="Contra entrega">Contra entrega</option>
-<option value="Nequi">Nequi</option>
-<option value="Daviplata">Daviplata</option>
+<option>Contra entrega</option>
+<option>Nequi</option>
+<option>Daviplata</option>
 </select>
 
 <button class="enviar" onclick="enviarWhatsApp()">Enviar Pedido</button>
@@ -246,42 +193,82 @@ input, select{
 </div>
 
 <script>
-let carrito = {};
 
-function agregar(nombre, precio){
-if(carrito[nombre]){
-carrito[nombre].cantidad++;
-}else{
-carrito[nombre]={precio:precio,cantidad:1};
+let productos = [
+{name:"Hamburguesa", precio:18000, categoria:"hamburguesa"},
+{name:"Aplastado de Pollo", precio:20000, categoria:"especial"},
+{name:"Aplastado Ropa Vieja", precio:22000, categoria:"especial"},
+{name:"Pincho Pollo", precio:15000, categoria:"pincho"},
+{name:"Pincho Mixto", precio:17000, categoria:"pincho"},
+{name:"Costillas", precio:25000, categoria:"especial"},
+{name:"Chorizo", precio:10000, categoria:"especial"},
+{name:"Porky Papas", precio:23000, categoria:"especial"},
+{name:"Gaseosa", precio:5000, categoria:"bebida"}
+];
+
+let carrito={};
+
+function formato(num){
+return num.toLocaleString("es-CO");
 }
+
+function mostrar(lista){
+let cont=document.getElementById("productos");
+cont.innerHTML="";
+lista.forEach(p=>{
+cont.innerHTML+=`
+<div class="card">
+<img src="https://i.imgur.com/5Aqgz7o.jpg">
+<h3>${p.name}</h3>
+<p class="precio">$${formato(p.precio)}</p>
+<button class="agregar" onclick="agregar('${p.name}',${p.precio})">Agregar</button>
+<button class="quitar" onclick="quitar('${p.name}')">Quitar</button>
+</div>
+`;
+});
+}
+
+function filtrar(cat){
+document.querySelectorAll(".filtros button").forEach(b=>b.classList.remove("activo"));
+event.target.classList.add("activo");
+
+if(cat=="todos"){
+mostrar(productos);
+}else{
+mostrar(productos.filter(p=>p.categoria==cat));
+}
+}
+
+function buscar(texto){
+let filtrados=productos.filter(p=>p.name.toLowerCase().includes(texto.toLowerCase()));
+mostrar(filtrados);
+}
+
+function agregar(nombre,precio){
+if(carrito[nombre]) carrito[nombre].cantidad++;
+else carrito[nombre]={precio:precio,cantidad:1};
 actualizar();
 }
 
 function quitar(nombre){
 if(carrito[nombre]){
 carrito[nombre].cantidad--;
-if(carrito[nombre].cantidad<=0){
-delete carrito[nombre];
-}
+if(carrito[nombre].cantidad<=0) delete carrito[nombre];
 }
 actualizar();
 }
 
 function actualizar(){
 let lista=document.getElementById("lista");
-let total=0;
-let contador=0;
+let total=0,contador=0;
 lista.innerHTML="";
-
 for(let item in carrito){
 let subtotal=carrito[item].precio*carrito[item].cantidad;
 total+=subtotal;
 contador+=carrito[item].cantidad;
-
-lista.innerHTML+=item+" x"+carrito[item].cantidad+" - $"+subtotal+"<br>";
+lista.innerHTML+=`${item} x${carrito[item].cantidad} - $${formato(subtotal)}<br>`;
 }
-
-document.getElementById("total").innerText=total;
+document.getElementById("total").innerText=formato(total);
 document.getElementById("contador").innerText=contador;
 }
 
@@ -299,16 +286,19 @@ if(total==0){alert("Carrito vacío");return;}
 
 let nombre=document.getElementById("nombre").value;
 let direccion=document.getElementById("direccion").value;
+let nota=document.getElementById("nota").value;
 let pago=document.getElementById("pago").value;
 
-let mensaje="Pedido:%0A";
+let mensaje="🍔 *Pedido Nuevo* %0A%0A";
 for(let item in carrito){
-mensaje+="- "+item+" x"+carrito[item].cantidad+"%0A";
+mensaje+=`- ${item} x${carrito[item].cantidad}%0A`;
 }
-mensaje+="%0ATotal: $"+total;
-mensaje+="%0ACliente: "+nombre;
-mensaje+="%0ADirección: "+direccion;
-mensaje+="%0APago: "+pago;
+mensaje+=`%0ATotal: $${total}`;
+mensaje+=`%0ACliente: ${nombre}`;
+mensaje+=`%0ADirección: ${direccion}`;
+mensaje+=`%0ANotas: ${nota}`;
+mensaje+=`%0APago: ${pago}`;
+mensaje+=`%0A%0AGracias por preferirnos 🙌`;
 
 let numero="573144351069"; // CAMBIA TU NUMERO
 
@@ -320,7 +310,10 @@ carrito={};
 actualizar();
 cerrarCarrito();
 }
+
+mostrar(productos);
+
 </script>
 
 </body>
-</html
+</html>
